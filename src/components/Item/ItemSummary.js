@@ -4,6 +4,7 @@ import "./tooltip.css";
 import { motion } from "framer-motion";
 import { ModalContext } from "../../context/ModalContext";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const ItemSummary = ({ item, hoverItem }) => {
   const [expand, setExpand] = useState(false);
@@ -22,13 +23,13 @@ const ItemSummary = ({ item, hoverItem }) => {
         transition={{ duration: 0.2 }}
       >
         <div className="w-full h-48 lg:h-56 relative">
-          <a href="#">
+          <Link to={"/anime/" + item.id}>
             <img
               src={item.coverImage.extraLarge}
               alt="image"
               className="w-full h-full rounded"
             />
-          </a>
+          </Link>
           <div
             className=" rounded-full absolute bottom-3 right-2 text-gray-900 flex flex-col-reverse"
             onMouseLeave={() => setMore(false)}
@@ -131,7 +132,7 @@ const ItemSummary = ({ item, hoverItem }) => {
           </div>
         </div>
         <div className="title h-12 py-2 overflow-hidden text-sm font-medium ">
-          <a href="#">{item.title.userPreferred}</a>
+          <Link to={"/anime/" + item.id}>{item.title.userPreferred}</Link>
         </div>
       </motion.div>
       {expand && (

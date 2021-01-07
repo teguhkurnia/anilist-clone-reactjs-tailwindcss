@@ -22,3 +22,14 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+.tooltip-o .tooltip-text {
+  visibility: hidden;
+  text-align: center;
+  padding: 2px 6px;
+  position: absolute;
+  z-index: 100;
+}
+.tooltip-o:hover .tooltip-text {
+  visibility: visible;
+}

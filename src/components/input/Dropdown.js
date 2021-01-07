@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./scrollbar.css";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 const Dropdown = ({ items, onSelected, isMultiSelect }) => {
   const wrapperRef = useRef(null);
@@ -53,19 +54,12 @@ const Dropdown = ({ items, onSelected, isMultiSelect }) => {
     ) : (
       <span className="w-full">Any</span>
     );
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, false);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, false);
-    };
-  }, []);
 
-  const handleClickOutside = (event) => {
-    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-      setExpand(false);
-      setOpenInput(false);
-    }
-  };
+  useClickOutside(() => {
+    setExpand(false);
+    setOpenInput(false);
+  }, wrapperRef);
+
   useEffect(() => {
     onSelected(selectedItems);
   }, [selectedItems]);

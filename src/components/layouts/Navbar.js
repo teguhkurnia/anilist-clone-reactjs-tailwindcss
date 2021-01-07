@@ -19,7 +19,7 @@ const Navbar = () => {
   ));
   const [open, setOpen] = useState(false);
   return (
-    <nav className="bg-gray-800 w-full">
+    <nav className="bg-gray-800 w-full hidden">
       <div className="container lg:flex mx-auto lg:px-28  items-center h-full justify-between">
         <div className="brand flex justify-between items-center border-b lg:border-none border-gray-600 py-4 px-3  text-white">
           <a href="/" className="text-2xl">

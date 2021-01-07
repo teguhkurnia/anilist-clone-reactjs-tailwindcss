@@ -4,26 +4,12 @@ import Dropdown2 from "../input/Dropdown2";
 import "./modal.css";
 import { motion } from "framer-motion";
 import DatePicker from "../input/DatePicker";
-import Input from "../input/Input";
 import InputNumber from "../input/InputNumber";
 import Textarea from "../input/Textarea";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 const Modal = () => {
   const { isOpen, setIsOpen, info } = useContext(ModalContext);
-  const wrapperRef = useRef(null);
-  const handleClickOutside = (event) => {
-    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-      document.body.classList.remove("overflow-hidden");
-      setIsOpen(false);
-    }
-  };
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, false);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, false);
-    };
-  }, []);
-
   const [status, setStatus] = useState([
     "Watching",
     "Plan to watch",
@@ -32,9 +18,13 @@ const Modal = () => {
     "Paused",
     "Dropped",
   ]);
-
   const [selectedStatus, setSelectedStatus] = useState("");
 
+  const wrapperRef = useRef(null);
+
+  useClickOutside(() => {
+    setIsOpen(false);
+  }, wrapperRef);
   return (
     <motion.div
       class="bg-gray-900 bg-opacity-70 flex flex-col justify-center items-center py-10 sm:py-12 fixed z-20 top-0 bottom-0 right-0 left-0 overflow-y-auto-auto overflow-x-hidden"
@@ -43,8 +33,8 @@ const Modal = () => {
       transition={{ duration: 0.2 }}
     >
       <div
-        // ref={wrapperRef}
         className="w-screen md:w-full lg:w-2/3 h-auto bg-gray-800 rounded mx-auto mt-72 lg:mt-0"
+        ref={wrapperRef}
       >
         <div
           className="header h-48 w-full banner-image relative"
